@@ -40,7 +40,7 @@
 </template>
 
 <script>
-
+import CryptoJS from 'crypto-js'
 export default {
   data: () => {
     return {
@@ -54,7 +54,7 @@ export default {
   methods: {
     login: function () {
       let self=this;
-    /*   self.$axios.post('/users/signin',{
+      self.$axios.post('/users/signin',{
         username:window.encodeURIComponent(self.username),
         password:CryptoJS.MD5(self.password).toString()
       }).then(({status,data})=>{
@@ -67,7 +67,7 @@ export default {
         }else{
           self.error=`服务器出错`
         }
-      }) */
+      })
     }
   }
 }

@@ -17,9 +17,9 @@
             placeholder="搜索商家或地点"
             @focus="focus"
             @blur="blur"
-           
+           @input="input" 
             />
-             <!-- @input="input"  -->
+              
              
            
            
@@ -110,7 +110,7 @@ export default {
         self.isFocus=false
       },200)
     },
-  /*   input:_.debounce(async function(){
+     input:_.debounce(async function(){
       let self=this;
       let city=self.$store.state.geo.position.city.replace('市','')
       self.searchList=[]
@@ -121,7 +121,7 @@ export default {
         }
       })
       self.searchList=top.slice(0,10)
-    },300) */
+    },300) 
   } 
 }
 </script>

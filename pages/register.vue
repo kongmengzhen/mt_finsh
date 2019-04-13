@@ -76,7 +76,7 @@
 </template>
 
 <script>
-
+import CryptoJS from 'crypto-js'
         export default {
           data() {
             return {
@@ -129,7 +129,7 @@
           layout: 'blank',
           methods: {
             sendMsg: function () {
-            /*   const self = this;
+              const self = this;
               let namePass
               let emailPass
               if (self.timerid) {
@@ -166,10 +166,10 @@
                     self.statusMsg = data.msg
                   }
                 })
-              } */
+              }
             },
             register: function () {
-             /*  let self = this;
+              let self = this;
               this.$refs['ruleForm'].validate((valid) => {
                 if (valid) {
                   self.$axios.post('/users/signup', {
@@ -195,8 +195,8 @@
                     }, 1500)
                   })
                 }
-              })*/
-            } 
+              })
+            }
           }
         }
 </script>
