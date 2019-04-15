@@ -17,12 +17,7 @@
             placeholder="搜索商家或地点"
             @focus="focus"
             @blur="blur"
-           @input="input" 
-            />
-              
-             
-           
-           
+            @input="input"/>
           <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
           <dl
             v-if="isHotPlace"
@@ -32,7 +27,7 @@
               v-for="(item,idx) in hotPlace.slice(0,5)"
               :key="idx">
               <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
-            </dd> 
+            </dd>
           </dl>
           <dl
             v-if="isSearchList"
@@ -42,14 +37,14 @@
               :key="idx">
               <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
             </dd>
-          </dl> 
+          </dl>
         </div>
-       <p class="suggest">
+        <p class="suggest">
           <a
             v-for="(item,idx) in hotPlace.slice(0,5)"
             :key="idx"
             :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
-        </p> 
+        </p>
         <ul class="nav">
           <li><nuxt-link
             to="/"
@@ -84,7 +79,7 @@
 <script>
 import _ from 'lodash'
 export default {
-   data(){
+  data(){
     return {
       search:'',
       isFocus:false,
@@ -110,9 +105,9 @@ export default {
         self.isFocus=false
       },200)
     },
-     input:_.debounce(async function(){
+    input:_.debounce(async function(){
       let self=this;
-      let city=self.$store.state.geo.position.city.replace('市','')
+      // let city=self.$store.state.geo.position.city.replace('市','')
       self.searchList=[]
       let {status,data:{top}}=await self.$axios.get('/search/top',{
         params:{
@@ -121,8 +116,8 @@ export default {
         }
       })
       self.searchList=top.slice(0,10)
-    },300) 
-  } 
+    },300)
+  }
 }
 </script>
 

@@ -44,7 +44,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    /* '@nuxtjs/axios' */
+     '@nuxtjs/axios' 
   ],
   axios:{
 
@@ -60,7 +60,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-   /*     if(ctx.isDev&&ctx.isClient){
+       if(ctx.isDev&&ctx.isClient){
          config.module.rules.push({
           enforce:'pre',
           test: /\.(js|vue)$/,
@@ -68,8 +68,8 @@ module.exports = {
           exclude:/(node_modules)/
 
          })
-        }  */
+        }   
     },
-    cache:true
+    cache:false
   }
 }
