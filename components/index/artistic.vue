@@ -1,6 +1,6 @@
 <template>
   <section class="m-istyle">
-    <dl >
+    <dl @mouseover="over">
       <dt>有格调</dt>
       <dd
         :class="{active:kind==='all'}"
@@ -62,7 +62,7 @@ export default {
       return this.list[this.kind]
     }
   },
- /*  async mounted(){
+  async mounted(){
     let self=this;
     let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
       params:{
@@ -84,8 +84,8 @@ export default {
     }else{
       self.list[self.kind]=[]
     }
-  }, */
-  /* methods: {
+  },
+  methods: {
     over: async function (e) {
       let dom = e.target
       let tag = dom.tagName.toLowerCase()
@@ -115,7 +115,7 @@ export default {
         }
       }
     }
-  }, */
+  },
 
 }
 </script>

@@ -5,7 +5,7 @@
       @mouseleave="mouseleave">
       <dt>全部分类</dt>
       <dd
-        v-for="(item,idx) in menu"
+        v-for="(item,idx) in $store.state.home.menu "
         :key="idx"
         @mouseenter="enter">
         <i :class="item.type"/>{{ item.name }}<span class="arrow"/>
@@ -57,7 +57,7 @@ export default {
   },
   computed:{
     curdetail:function(){
-      return this.menu.filter(item => item.type===this.kind)[0]
+      return this.$store.state.home.menu.filter(item => item.type===this.kind)[0]
     }
   },
   methods:{
@@ -68,8 +68,10 @@ export default {
       },150)
     },
     enter:function(e){
+      //意思就是当鼠标hover时 拿到这个标签的type值  因为className就是这个type 而判断就是拿type和kind进行比较的
       this.kind=e.target.querySelector('i').className
     },
+    //sover的方法的作用时 如果已经移入detail中了，我们需要把定时器移除，这样kind的值就不会清空掉了。
     sover:function(){
       clearTimeout(this._timer)
     },

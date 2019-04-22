@@ -24,7 +24,7 @@
             class="hotPlace">
             <dt>热门搜索</dt>
             <dd
-              v-for="(item,idx) in hotPlace.slice(0,5)"
+              v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)"
               :key="idx">
               <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
             </dd>
@@ -41,7 +41,7 @@
         </div>
         <p class="suggest">
           <a
-            v-for="(item,idx) in hotPlace.slice(0,5)"
+            v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)"
             :key="idx"
             :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
         </p>
@@ -107,7 +107,7 @@ export default {
     },
     input:_.debounce(async function(){
       let self=this;
-      // let city=self.$store.state.geo.position.city.replace('市','')
+      let city=self.$store.state.geo.position.city.replace('市','')
       self.searchList=[]
       let {status,data:{top}}=await self.$axios.get('/search/top',{
         params:{

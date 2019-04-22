@@ -55,6 +55,7 @@ export default {
     login: function () {
       let self=this;
       self.$axios.post('/users/signin',{
+        //同注册
         username:window.encodeURIComponent(self.username),
         password:CryptoJS.MD5(self.password).toString()
       }).then(({status,data})=>{

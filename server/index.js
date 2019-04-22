@@ -1,32 +1,49 @@
 import Koa from 'koa'
 const consola = require('consola')
-const {Nuxt, Builder} = require('nuxt')
+const { Nuxt, Builder } = require('nuxt')
 
 import mongoose from 'mongoose'
+//koa-bodyparser 主要处理跟post相关的请求。
 import bodyParser from 'koa-bodyparser'
+//操作和session相关的操作 ，因为我们在这个项目中并美誉使用cookie。
 import session from 'koa-generic-session'
+//
 import Redis from 'koa-redis'
+//解决服务端向客户端response发送的json美化的一个效果。
 import json from 'koa-json'
+//导入数据库相关的配置
 import dbConfig from './dbs/config'
 import passport from './interface/utils/passport'
+//导入接口
 import users from './interface/users'
+import geo from './interface/geo'
+import search from './interface/search'
+import categroy from './interface/categroy'
+import cart from './interface/cart'
+import order from './interface/order'
 
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
+//装完相关的包之后我们要有一些配置
+//密钥
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
-app.use(session({key: 'mt', prefix: 'mt:uid', store: new Redis()}))
+//session 配置
+app.use(session({ key: 'mt', prefix: 'mt:uid', store: new Redis() }))
+//配置post的一些处理
 app.use(bodyParser({
-  extendTypes:['json','form','text']
+  extendTypes: ['json', 'form', 'text']
 }))
-app.use(json())
 
-mongoose.connect(dbConfig.dbs,{
-  useNewUrlParser:true
+app.use(json())
+//连接数据库的操作，官方的写法
+mongoose.connect(dbConfig.dbs, {
+  useNewUrlParser: true
 })
+//处理登录相关的配置 initialize()初始化
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -43,8 +60,13 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+  //引入路由 注意这一步一定要在下面那串代码之前，否则会失效。
   app.use(users.routes()).use(users.allowedMethods())
-  
+  app.use(geo.routes()).use(geo.allowedMethods())
+  app.use(search.routes()).use(search.allowedMethods())
+  app.use(categroy.routes()).use(categroy.allowedMethods())
+  app.use(cart.routes()).use(cart.allowedMethods())
+  app.use(order.routes()).use(order.allowedMethods())
   app.use(ctx => {
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset
 
@@ -59,7 +81,7 @@ async function start() {
   })
 
   app.listen(port, host)
-  consola.ready({message: `Server listening on http://${host}:${port}`, badge: true})
+  consola.ready({ message: `Server listening on http://${host}:${port}`, badge: true })
 }
 
 start()
